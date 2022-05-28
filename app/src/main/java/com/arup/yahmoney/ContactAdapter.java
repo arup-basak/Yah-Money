@@ -13,6 +13,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -20,6 +21,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 
@@ -29,56 +32,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     final Context context;
     final ContentResolver cr;
     final LayoutInflater inflater;
-
-
-    // If the Clicked Contact has many numbers then Show A Dialog
-    public class NumberListContactAdapter extends RecyclerView.Adapter<NumberListContactAdapter.ViewHolder>{
-        User user;
-        final LinkedList<String> list;
-        public NumberListContactAdapter(User user, LinkedList<String> list) {
-            this.user = user;
-            this.list = list;
-        }
-
-        @NonNull
-        @Override
-        public NumberListContactAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.recylerview_numbers_contact, parent, false);
-            return new NumberListContactAdapter.ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull NumberListContactAdapter.ViewHolder holder, int position) {
-            int index = holder.getAdapterPosition();
-            holder.button.setText(list.get(index));
-            holder.button.setOnClickListener(v -> {
-                user.changePhone(list.get(index));
-                startActivity();
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return list.size();
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder{
-            final Button button;
-            public ViewHolder(@NonNull View itemView) {
-                super(itemView);
-                button = itemView.findViewById(R.id.number_button);
-            }
-        }
-
-        private void startActivity() {
-            Intent intent = new Intent(context, MainActivity.class);
-            intent.putExtra("NewUserNameFromContact", user.getName());
-            intent.putExtra("NewUserContactFromContact", user.getPhone());
-            context.startActivity(intent);
-        }
-    }
-
 
     public ContactAdapter(LinkedList<User> list, Cursor cursor, Context context, LayoutInflater inflater) {
         this.list = list;
@@ -99,7 +52,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     @SuppressLint("Range")
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        LinkedList<String> numberList = new LinkedList<>();
+        HashSet<String> numberSet = new HashSet<>();
         int index = viewHolder.getAdapterPosition();
         viewHolder.nameView.setText(list.get(index).getName());
         viewHolder.imageView.setImageResource(imageView());
@@ -112,12 +65,26 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
 
             while (cur.moveToNext()) {
                 String number = cur.getString(cur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                if(number.contains("+91")) number = number.replace("+91", "");
+                if(number.contains("+91")){
+                    number = number.replace("+91", "");
+                }
+                if(number.contains("-")) {
+                    number = number.replace("-", "");
+                }
                 number = number.replace(" ", "");
-                numberList.add(number);
+                numberSet.add(number);
             }
             cur.close();
-            showDialog(numberList, index);
+
+            String[] numbers = Arrays.copyOf(numberSet.toArray(), numberSet.size(), String[].class);
+
+            if(numbers.length != 1) {
+                showDialog(numbers, index);
+                Toast.makeText(context, numberSet.toString(), Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(context, numbers[0], Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -158,7 +125,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         }
     }
 
-    public void showDialog(LinkedList<String> numberList, int index) {
+    public void showDialog(String[] numbers, int index) {
         AlertDialog.Builder alert;
         alert = new AlertDialog.Builder(context);
         View view = inflater.inflate(R.layout.alert_numbers, null);
@@ -174,7 +141,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         close.setOnClickListener(v-> alertDialog.cancel());
 
         final RecyclerView recyclerView = view.findViewById(R.id.number_rv);
-        NumberListContactAdapter adapter = new NumberListContactAdapter(list.get(index), numberList);
+        NumberListContactAdapter adapter = new NumberListContactAdapter(list.get(index), numbers);
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -191,6 +158,54 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
                     names[j] = temp;
                 }
             }
+        }
+    }
+
+    // If the Clicked Contact has many numbers then Show A Dialog
+    public class NumberListContactAdapter extends RecyclerView.Adapter<NumberListContactAdapter.ViewHolder>{
+        User user;
+        final String[] numbers;
+        public NumberListContactAdapter(User user, String[] numbers) {
+            this.user = user;
+            this.numbers = numbers;
+        }
+
+        @NonNull
+        @Override
+        public NumberListContactAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.recylerview_numbers_contact, parent, false);
+            return new NumberListContactAdapter.ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull NumberListContactAdapter.ViewHolder holder, int position) {
+            int index = holder.getAdapterPosition();
+            holder.button.setText(numbers[index]);
+            holder.button.setOnClickListener(v -> {
+                user.changePhone(numbers[index]);
+                startActivity();
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return numbers.length;
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder{
+            final Button button;
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+                button = itemView.findViewById(R.id.number_button);
+            }
+        }
+
+        private void startActivity() {
+            Intent intent = new Intent(context, MainActivity.class);
+            intent.putExtra("NewUserNameFromContact", user.getName());
+            intent.putExtra("NewUserContactFromContact", user.getPhone());
+            context.startActivity(intent);
         }
     }
 }
