@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
     static User user;
 
+    private String KEY = "ChatData";
+
     FloatingActionButton addCustomFab, addContactFab;
     ExtendedFloatingActionButton mAddFab;
     TextView addCustomActionText, addContactActionText;
@@ -41,13 +43,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        {
-            Intent intent = getIntent();
-            String name = intent.getStringExtra("nameFromLogin");
-            String phoneNo = intent.getStringExtra("phoneFromLogin");
 
-            user = new User(name, phoneNo);
-        }
+        Intent get_intent = getIntent();
+        String name = get_intent.getStringExtra("nameFromLogin");
+        String phoneNo = get_intent.getStringExtra("phoneFromLogin");
+
+        user = new User(name, phoneNo);
 
 
         consoleEditText = findViewById(R.id.console);
@@ -116,25 +117,33 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        String[][] data = {{"Arup", "Basak"}, {"Arup", "Basak"}, {"Arup", "Basak"}};
-        MainListAdapter adapter = new MainListAdapter(data, this);
-        RecyclerView rv = findViewById(R.id.mainpage_recycler);
-        rv.setAdapter(adapter);
-        rv.setLayoutManager(new LinearLayoutManager(this));
+
+
+        refresh();
+
+        try {
+            Toast.makeText(context, String.valueOf(chats.size()), Toast.LENGTH_SHORT).show();
+
+        }
+        catch (Exception e) {}
     }
 
     private void SearchName(String command) {
 
     }
 
-    private void SaveDetails() {
+    private void getDetails() {
+
+    }
+
+    private void SaveDetails(User user) {
         ObjectPreference objectPreference = (ObjectPreference) this.getApplication();
 
-        chats.add(new Chat(user, null, null));
+        chats.add(new Chat(MainActivity.user, user, null));
 
         ComplexPreferences complexPreferences = objectPreference.getComplexPreference();
         if(complexPreferences != null) {
-//            complexPreferences.putObject("chat", chats);
+            complexPreferences.putObject(KEY, chats);
             complexPreferences.commit();
         }
         else {
@@ -152,10 +161,7 @@ public class MainActivity extends AppCompatActivity {
         final EditText nameEV = view.findViewById(R.id.alert_name);
         final EditText phoneEV = view.findViewById(R.id.alert_phone_no);
 
-        String name = nameEV.getText().toString();
-        String phone = phoneEV.getText().toString();
 
-        User user2 = new User(name, phone);
 
         final Button save = view.findViewById(R.id.alert_save);
 
@@ -169,13 +175,36 @@ public class MainActivity extends AppCompatActivity {
 
 
         save.setOnClickListener(v -> {
+            String name = nameEV.getText().toString();
+            String phone = phoneEV.getText().toString();
+
+            User user2 = new User(name, phone);
+
             chats.add(new Chat(user, user2, null));
+
+            refresh();
+            alertDialog.cancel();
+
             Intent intent = new Intent(this, ChatPage.class);
             intent.putExtra("NameFromNew", name);
             intent.putExtra("phoneFromLogin", phone);
-            intent.putExtra("PositionIndex", 0);
+            intent.putExtra("PositionIndex", chats.size() - 1);
             startActivity(intent);
         });
         view.findViewById(R.id.alert_close).setOnClickListener(v -> alertDialog.cancel());
+    }
+
+    private void refresh() {
+        int size = chats.size();
+        String[][] data = new String[size][2];
+        for(int i = 0 ; i < size ; i++) {
+            data[i][0] = chats.get(i).getUser().getName();
+            data[i][1] = String.valueOf(chats.get(i).getAmount());
+        }
+
+        MainListAdapter adapter = new MainListAdapter(data, this);
+        RecyclerView rv = findViewById(R.id.mainpage_recycler);
+        rv.setAdapter(adapter);
+        rv.setLayoutManager(new LinearLayoutManager(this));
     }
 }

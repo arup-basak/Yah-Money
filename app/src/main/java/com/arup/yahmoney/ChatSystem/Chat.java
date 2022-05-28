@@ -10,8 +10,6 @@ import java.util.Calendar;
 import java.util.LinkedList;
 
 public class Chat {
-    /*static String user1;
-    String user2;//user1 - true, user2 - false*/
     User user1, user2;
     String MessageText;
     LinkedList<Message> messages = new LinkedList<>();

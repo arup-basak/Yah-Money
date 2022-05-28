@@ -29,10 +29,7 @@ public class ChatPage extends AppCompatActivity {
         //ev.setText(String.valueOf(chat.getName()));
         int index = 0;
 
-        if(MainActivity.chats.size() != 0) {
-            this.chat = MainActivity.chats.get(index);
-        }
-        else {
+        if (MainActivity.chats.size() == 0) {
             String name = intent.getStringExtra("NameFromNew");
             String phone = intent.getStringExtra("PhoneFromNew");
             User user = new User(name, phone);
@@ -40,10 +37,12 @@ public class ChatPage extends AppCompatActivity {
             nameView.setText(name);
             numberView.setText(phone);
         }
-
+        else {
+            this.chat = MainActivity.chats.get(index);
+        }
         totalTextView = findViewById(R.id.total);
 
-        loadRecyclerView();
+        refresh();
 
 
 
@@ -57,7 +56,7 @@ public class ChatPage extends AppCompatActivity {
             if(str.length() != 0) {
                 editTextInputView.setText(null);
                 chat.addMessage(str, true);
-                loadRecyclerView();
+                refresh();
             }
         });
 
@@ -66,27 +65,18 @@ public class ChatPage extends AppCompatActivity {
             if(str.length() != 0) {
                 editTextInputView.setText(null);
                 chat.addMessage(str, false);
-                loadRecyclerView();
+                refresh();
             }
         });
 
 
     }
-    private void loadRecyclerView() {
+    private void refresh() {
         RecyclerView recyclerView = findViewById(R.id.chats);
         DateChatsAdapter adapter = new DateChatsAdapter(this, chat.getMessageWithDates());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        int size = chat.size();
-        for (int i = 0; i < size; i++) {
-            if(chat.getWho(i)) {
-                chat.addTransaction(Long.parseLong(chat.get(i).getMessage()));
-            }
-            else{
-                chat.subTransaction(Long.parseLong(chat.get(i).getMessage()));
-            }
-        }
         totalTextView.setText(String.valueOf(chat.getAmount()));
         if(chat.getAmount() < 0) {
             totalTextView.setTextColor(totalTextView.getContext().getColor(R.color.green));

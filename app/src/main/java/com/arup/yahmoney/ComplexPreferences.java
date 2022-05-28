@@ -12,7 +12,8 @@ public class ComplexPreferences {
     private final SharedPreferences preferences;
     private final SharedPreferences.Editor editor;
     private static final Gson GSON = new Gson();
-    Type typeOfObject = new TypeToken<Object>(){}.getType();
+    Type typeOfObject = new TypeToken<>() {
+    }.getType();
 
     private ComplexPreferences(Context context, String namePreferences, int mode) {
         if (namePreferences == null || namePreferences.equals("")) {

@@ -38,7 +38,10 @@ public class loginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        startActivity(new Intent(this, contacts.class));
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("nameFromLogin", "ARUP");
+        intent.putExtra("phoneFromLogin", "9732919663");
+        startActivity(intent);
 
         mAuth = FirebaseAuth.getInstance();
         mAuth.getFirebaseAuthSettings().setAppVerificationDisabledForTesting(true);

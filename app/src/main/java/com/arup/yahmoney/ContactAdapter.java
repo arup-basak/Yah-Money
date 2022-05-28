@@ -75,20 +75,18 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
             }
             cur.close();
 
-            String[] arr = new String[] {"HEllo", "Arup Basak"};
-            showDialog(arr, index);
+            /*String[] arr = new String[] {"HEllo", "Arup Basak"};
+            showDialog(arr, index);*/
 
-            /*String[] numbers = Arrays.copyOf(numberSet.toArray(), numberSet.size(), String[].class);
+            String[] numbers = Arrays.copyOf(numberSet.toArray(), numberSet.size(), String[].class);
 
             if(numbers.length != 1) {
-                //showDialog(numbers, index);
-
-
+                showDialog(numbers, index);
                 Toast.makeText(context, numberSet.toString(), Toast.LENGTH_SHORT).show();
             }
             else {
                 Toast.makeText(context, numbers[0], Toast.LENGTH_SHORT).show();
-            }*/
+            }
         });
     }
 
@@ -134,6 +132,11 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         alert = new AlertDialog.Builder(context);
         View view = LayoutInflater.from(context).inflate(R.layout.alert_numbers, null);
 
+        final RecyclerView recyclerView = view.findViewById(R.id.number_rv);
+        NumberListContactAdapter adapter = new NumberListContactAdapter(list.get(index), numbers);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+
         alert.setView(view);
         alert.setCancelable(false);
 
@@ -143,11 +146,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
 
         final Button close = view.findViewById(R.id.alert_close_contact);
         close.setOnClickListener(v-> alertDialog.cancel());
-
-        final RecyclerView recyclerView = view.findViewById(R.id.number_rv);
-        NumberListContactAdapter adapter = new NumberListContactAdapter(list.get(index), numbers);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
     }
 
     private void sort(String[] names) {
@@ -184,6 +182,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         @Override
         public void onBindViewHolder(@NonNull NumberListContactAdapter.ViewHolder holder, int position) {
             int index = holder.getAdapterPosition();
+            Toast.makeText(context, String.valueOf(index), Toast.LENGTH_SHORT).show();
             holder.button.setText(numbers[index]);
             holder.button.setOnClickListener(v -> {
                 user.changePhone(numbers[index]);
