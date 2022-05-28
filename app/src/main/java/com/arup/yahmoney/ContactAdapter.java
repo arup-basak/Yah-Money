@@ -31,13 +31,12 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     final Cursor cursor;
     final Context context;
     final ContentResolver cr;
-    final LayoutInflater inflater;
+    //LayoutInflater inflater;
 
-    public ContactAdapter(LinkedList<User> list, Cursor cursor, Context context, LayoutInflater inflater) {
+    public ContactAdapter(LinkedList<User> list, Cursor cursor, Context context) {
         this.list = list;
         this.cursor = cursor;
         this.context = context;
-        this.inflater = inflater;
         this.cr = context.getContentResolver();
     }
 
@@ -76,15 +75,20 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
             }
             cur.close();
 
-            String[] numbers = Arrays.copyOf(numberSet.toArray(), numberSet.size(), String[].class);
+            String[] arr = new String[] {"HEllo", "Arup Basak"};
+            showDialog(arr, index);
+
+            /*String[] numbers = Arrays.copyOf(numberSet.toArray(), numberSet.size(), String[].class);
 
             if(numbers.length != 1) {
-                showDialog(numbers, index);
+                //showDialog(numbers, index);
+
+
                 Toast.makeText(context, numberSet.toString(), Toast.LENGTH_SHORT).show();
             }
             else {
                 Toast.makeText(context, numbers[0], Toast.LENGTH_SHORT).show();
-            }
+            }*/
         });
     }
 
@@ -128,7 +132,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     public void showDialog(String[] numbers, int index) {
         AlertDialog.Builder alert;
         alert = new AlertDialog.Builder(context);
-        View view = inflater.inflate(R.layout.alert_numbers, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.alert_numbers, null);
 
         alert.setView(view);
         alert.setCancelable(false);
@@ -142,7 +146,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
 
         final RecyclerView recyclerView = view.findViewById(R.id.number_rv);
         NumberListContactAdapter adapter = new NumberListContactAdapter(list.get(index), numbers);
-
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
     }
@@ -162,7 +165,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     }
 
     // If the Clicked Contact has many numbers then Show A Dialog
-    public class NumberListContactAdapter extends RecyclerView.Adapter<NumberListContactAdapter.ViewHolder>{
+    private class NumberListContactAdapter extends RecyclerView.Adapter<NumberListContactAdapter.ViewHolder>{
         User user;
         final String[] numbers;
         public NumberListContactAdapter(User user, String[] numbers) {

@@ -5,7 +5,6 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.view.LayoutInflater;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,11 +13,10 @@ import java.util.LinkedList;
 
 public class contacts extends AppCompatActivity {
     private Cursor cursor;
-    LayoutInflater inflater;
 
     private void loadRecyclerView(LinkedList<User> list) {
         RecyclerView view = findViewById(R.id.contacts_rv);
-        ContactAdapter adapter = new ContactAdapter(list, cursor, this, inflater);
+        ContactAdapter adapter = new ContactAdapter(list, cursor, this);
         view.setAdapter(adapter);
         view.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -27,7 +25,6 @@ public class contacts extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
-        inflater = getLayoutInflater();
         loadRecyclerView(get());
         Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
 
