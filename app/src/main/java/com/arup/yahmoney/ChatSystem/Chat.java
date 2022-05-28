@@ -64,7 +64,7 @@ public class Chat {
     public void addMessage(String message, boolean user) {
         @SuppressLint("SimpleDateFormat") DateFormat df = new SimpleDateFormat("dd/MM/yyyy, HH:mm - ");
         Calendar calObj = Calendar.getInstance();
-        messages.add(new Message(df.format(calObj.getTime()) + (user ? user1 : user2) + ": " + message));
+        messages.add(new Message(df.format(calObj.getTime()) + (user ? user1 : user2).getName() + ": " + message));
     }
 
     public void reload() {

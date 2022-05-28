@@ -1,5 +1,7 @@
 package com.arup.yahmoney.ChatSystem;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 public class Message {
