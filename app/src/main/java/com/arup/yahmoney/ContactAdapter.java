@@ -3,6 +3,7 @@ package com.arup.yahmoney;
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
@@ -24,17 +25,67 @@ import java.util.LinkedList;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
     private final LinkedList<User> list;
-    Cursor cursor;
-    Context context;
-    ContentResolver cr;
-    LayoutInflater inflater;
+    final Cursor cursor;
+    final Context context;
+    final ContentResolver cr;
+    final LayoutInflater inflater;
 
-    public ContactAdapter(LinkedList<User> list, Cursor cursor, Context context, ContentResolver cr, LayoutInflater inflater) {
+
+    // If the Clicked Contact has many numbers then Show A Dialog
+    public class NumberListContactAdapter extends RecyclerView.Adapter<NumberListContactAdapter.ViewHolder>{
+        User user;
+        final LinkedList<String> list;
+        public NumberListContactAdapter(User user, LinkedList<String> list) {
+            this.user = user;
+            this.list = list;
+        }
+
+        @NonNull
+        @Override
+        public NumberListContactAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.recylerview_numbers_contact, parent, false);
+            return new NumberListContactAdapter.ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull NumberListContactAdapter.ViewHolder holder, int position) {
+            int index = holder.getAdapterPosition();
+            holder.button.setText(list.get(index));
+            holder.button.setOnClickListener(v -> {
+                user.changePhone(list.get(index));
+                startActivity();
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder{
+            final Button button;
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
+                button = itemView.findViewById(R.id.number_button);
+            }
+        }
+
+        private void startActivity() {
+            Intent intent = new Intent(context, MainActivity.class);
+            intent.putExtra("NewUserNameFromContact", user.getName());
+            intent.putExtra("NewUserContactFromContact", user.getPhone());
+            context.startActivity(intent);
+        }
+    }
+
+
+    public ContactAdapter(LinkedList<User> list, Cursor cursor, Context context, LayoutInflater inflater) {
         this.list = list;
         this.cursor = cursor;
         this.context = context;
-        this.cr = cr;
         this.inflater = inflater;
+        this.cr = context.getContentResolver();
     }
 
     @NonNull
@@ -123,9 +174,8 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         close.setOnClickListener(v-> alertDialog.cancel());
 
         final RecyclerView recyclerView = view.findViewById(R.id.number_rv);
-        NumberListContactAdapter adapter = new NumberListContactAdapter(list.get(index), numberList, context);
+        NumberListContactAdapter adapter = new NumberListContactAdapter(list.get(index), numberList);
 
-        //Log.d("vujfd", String.valueOf(adapter));
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
     }
@@ -144,3 +194,5 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         }
     }
 }
+
+

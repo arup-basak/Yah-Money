@@ -14,12 +14,11 @@ import java.util.LinkedList;
 
 public class contacts extends AppCompatActivity {
     private Cursor cursor;
-    private ContentResolver cr;
     LayoutInflater inflater;
 
     private void loadRecyclerView(LinkedList<User> list) {
         RecyclerView view = findViewById(R.id.contacts_rv);
-        ContactAdapter adapter = new ContactAdapter(list, cursor, this, cr, inflater);
+        ContactAdapter adapter = new ContactAdapter(list, cursor, this, inflater);
         view.setAdapter(adapter);
         view.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -43,7 +42,7 @@ public class contacts extends AppCompatActivity {
         };
         String selection = ContactsContract.Contacts.HAS_PHONE_NUMBER;
 
-        cr = getContentResolver();
+        ContentResolver cr = getContentResolver();
         cursor = cr.query(ContactsContract.Contacts.CONTENT_URI, projection, selection, null, null);
         if (cursor.getCount() > 0)
         {
