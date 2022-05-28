@@ -26,10 +26,3 @@ To Download all Codes Type...
 | Color5(Basically Text Color) | ![#001858](https://via.placeholder.com/10/00b48a?text=+) #001858 |
 
 
-## Used By
-
-This project is used by the following companies:
-
-- Company 1
-- Company 2
-
