@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_back"
+    android:orientation="vertical"
+    tools:context=".loginActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/loginview_back"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.441">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:text="@string/login_using_phone_no"
+            android:textColor="@color/color5"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/phoneno_login"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/edit_text_back"
+            android:ems="10"
+            android:hint="@string/type_phone_no"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:paddingStart="20dp"
+            android:textColor="@color/color5"
+            android:textColorHint="@color/color5_trans2"
+            android:textCursorDrawable="@drawable/cursor" />
+
+        <TextView
+            android:id="@+id/phoneNoWarn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/please_enter_valid_phone_no"
+            android:textColor="@color/red"
+            android:textSize="14sp"
+            android:visibility="invisible" />
+
+        <EditText
+            android:id="@+id/otp_login"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/edit_text_back"
+            android:ems="10"
+            android:hint="@string/type_otp"
+            android:inputType="number"
+            android:maxLength="6"
+            android:paddingStart="20dp"
+            android:textColor="@color/color5"
+            android:textColorHint="@color/color5_trans2"
+            android:textCursorDrawable="@drawable/cursor" />
+
+        <TextView
+            android:id="@+id/OTPWarn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/otp_is_not_valid"
+            android:textColor="@color/red"
+            android:textSize="14sp"
+            android:visibility="invisible" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/request_otp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:text="@string/request_otp"
+                android:textColor="@color/color5" />
+
+            <Button
+                android:id="@+id/submit_otp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/button"
+                android:text="@string/submit"
+                android:textColor="@color/color5" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/login_timer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:textColor="@color/color5" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

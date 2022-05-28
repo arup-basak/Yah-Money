@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "947856427717",
+    "project_id": "yah--money",
+    "storage_bucket": "yah--money.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:947856427717:android:7c86bc147b16da3f24beac",
+        "android_client_info": {
+          "package_name": "com.arup.yahmoney"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "947856427717-tn962cuf2rsucokho2v74cchbod7t0me.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNI-UmCzvL0zqitrOiPM9ciYNDuuNrap0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "947856427717-tn962cuf2rsucokho2v74cchbod7t0me.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
