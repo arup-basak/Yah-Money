@@ -5,9 +5,10 @@
     android:id="@+id/mainpage_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="40dp"
-    android:layout_marginEnd="40dp"
-    android:background="@drawable/mainpage_rec_back">
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/list_item_background">
 
     <TextView
         android:id="@+id/mainpage_name"
@@ -15,7 +16,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:textColor="@color/color5"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,7 +30,6 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:text="@tools:sample/full_names[5]"
-        android:textColor="@color/color5"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

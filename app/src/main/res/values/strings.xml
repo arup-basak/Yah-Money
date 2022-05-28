@@ -35,4 +35,6 @@
     <string name="please_enter_valid_phone_no">Please Enter Valid Phone No</string>
     <string name="add_from_contacts2">Add From Contacts</string>
     <string name="search">Search</string>
+    <string name="number">Number</string>
+    <string name="date">Date</string>
 </resources>

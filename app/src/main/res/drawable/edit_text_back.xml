@@ -3,6 +3,7 @@
         <shape android:shape="rectangle">
             <stroke android:width="2dp" android:color="@color/color5_trans2"/>
             <corners android:radius="25dp" />
+            <padding android:left="20dp"/>
         </shape>
     </item>
 </layer-list>

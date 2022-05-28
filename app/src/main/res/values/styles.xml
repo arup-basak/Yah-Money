@@ -1,0 +1,28 @@
+<resources>
+    <style name="app_theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/color1</item>
+        <item name="colorPrimaryVariant">@color/color3</item>
+        <item name="colorOnPrimary">@color/color4</item>
+
+        <!-- Default Background Color-->
+        <item name="android:windowBackground">@color/color1</item>
+
+        <!-- Default font-->
+        <item name="android:fontFamily">@font/regular</item>
+        <!-- Default Text Color-->
+        <item name="android:textColor">@color/color5</item>
+
+        <!-- Default Button Style  Improve Required-->
+        <item name="android:actionButtonStyle">@drawable/button</item>
+
+        <!-- Default Edit Text Background-->
+        <item name="android:editTextBackground">@drawable/edit_text_back</item>
+        <!-- Default Edit Text Hint Color-->
+        <item name="android:textColorHint">@color/color5_trans2</item>
+
+        <!-- Default Cursor -->
+        <item name="android:textCursorDrawable">@drawable/cursor</item>
+        <item name="android:buttonTint">@color/color3</item>
+
+    </style>
+</resources>

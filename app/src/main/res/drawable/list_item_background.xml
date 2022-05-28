@@ -3,6 +3,9 @@
     <item>
         <shape android:tint="@color/color2">
             <corners android:radius="20dp"/>
+            <padding
+                android:right="20dp"
+                android:left="20dp"/>
         </shape>
     </item>
 

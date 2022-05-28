@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color1"
-    tools:context=".chatsPage">
+    tools:context=".ChatPage">
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -13,45 +12,39 @@
         android:layout_height="wrap_content"
         android:background="@color/color2"
         android:orientation="horizontal"
+        android:baselineAligned="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
 
             <TextView
                 android:id="@+id/chats_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
                 android:layout_weight="1"
                 android:gravity="center|right|left"
-                android:paddingStart="20dp"
                 android:paddingTop="5dp"
                 android:text="@string/name"
-                android:textColor="@color/color5"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:ignore="NestedWeights,RtlHardcoded" />
 
             <TextView
                 android:id="@+id/chats_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_weight="1"
-                android:paddingStart="20dp"
                 android:paddingBottom="5dp"
-                android:text="Number"
-                android:textColor="@color/color5" />
+                android:text="@string/number" />
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/call" />
     </LinearLayout>
 
     <LinearLayout
@@ -72,7 +65,6 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:text="@string/amount"
-            android:textColor="@color/color5"
             android:textSize="24sp" />
 
         <LinearLayout
@@ -84,24 +76,24 @@
 
             <Button
                 android:id="@+id/send"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_weight="1"
-                android:background="@drawable/button"
                 android:text="@string/send"
-                android:textColor="@color/color5" />
+                android:textColor="@color/color5"
+                tools:ignore="NestedWeights" />
 
             <Button
                 android:id="@+id/receive"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_weight="1"
-                android:background="@drawable/button"
-                android:backgroundTint="@color/color4"
                 android:text="@string/recived"
                 android:textColor="@color/color5" />
         </LinearLayout>
@@ -114,15 +106,12 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="4dp"
             android:layout_weight="1"
-            android:background="@drawable/edit_text_back"
             android:ems="10"
             android:hint="@string/type_here"
             android:inputType="number"
             android:maxLength="12"
-            android:paddingStart="20dp"
-            android:textColor="@color/color5"
             android:textColorHint="@color/color5_trans2"
-            android:textCursorDrawable="@drawable/cursor" />
+            android:importantForAutofill="no" />
 
     </LinearLayout>
 
