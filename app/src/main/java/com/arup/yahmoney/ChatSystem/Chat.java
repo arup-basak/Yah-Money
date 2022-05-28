@@ -94,11 +94,6 @@ public class Chat {
         return messages.get(index);
     }
 
-    public boolean getWho(int index) {
-        get(index);
-        return false;
-    }
-
     public int size() {
         return messages.size();
     }
@@ -135,7 +130,7 @@ public class Chat {
     }
 
     public boolean side(int position) {
-        return messages.get(position).getName().equals(user1);
+        return messages.get(position).getName().equals(user1.getName());
     }
 
     public void addTransaction(long num) {

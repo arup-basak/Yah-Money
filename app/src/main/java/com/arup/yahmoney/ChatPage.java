@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,7 +27,6 @@ public class ChatPage extends AppCompatActivity {
         String posStr = String.valueOf(intent.getStringExtra("PositionIndex"));
         TextView nameView = findViewById(R.id.chats_name);
         TextView numberView = findViewById(R.id.chats_number);
-        //ev.setText(String.valueOf(chat.getName()));
         int index = 0;
 
         if (MainActivity.chats.size() == 0) {
@@ -53,6 +53,7 @@ public class ChatPage extends AppCompatActivity {
 
         receiveView.setOnClickListener(v -> {
             String str = editTextInputView.getText().toString();
+            chat.subTransaction(Long.parseLong(str));
             if(str.length() != 0) {
                 editTextInputView.setText(null);
                 chat.addMessage(str, true);
@@ -62,6 +63,7 @@ public class ChatPage extends AppCompatActivity {
 
         sendView.setOnClickListener(v -> {
             String str = editTextInputView.getText().toString();
+            chat.addTransaction(Long.parseLong(str));
             if(str.length() != 0) {
                 editTextInputView.setText(null);
                 chat.addMessage(str, false);
@@ -76,6 +78,17 @@ public class ChatPage extends AppCompatActivity {
         DateChatsAdapter adapter = new DateChatsAdapter(this, chat.getMessageWithDates());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        try {
+            Log.d("Frebfgregj", chat.get(0).toString());
+            Log.d("Frebfgregj", chat.get(1).toString());
+            Log.d("Frebfgregj", chat.get(2).toString());
+            Log.d("Frebfgregj", chat.get(3).toString());
+        }
+        catch (Exception e) {
+
+        }
+
 
         totalTextView.setText(String.valueOf(chat.getAmount()));
         if(chat.getAmount() < 0) {

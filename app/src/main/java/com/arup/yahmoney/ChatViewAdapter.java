@@ -69,7 +69,7 @@ public class ChatViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        if (chat.side(position)) {
+        if (!chat.side(position)) {
             ((MessageOutViewHolder) holder).bind(position);
         } else {
             ((MessageInViewHolder) holder).bind(position);
@@ -88,7 +88,7 @@ public class ChatViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) {
-        if(chat.side(position)) {
+        if(!chat.side(position)) {
             return RIGHT_SIDE;
         }
         else {
