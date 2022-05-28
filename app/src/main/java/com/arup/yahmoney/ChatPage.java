@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.arup.yahmoney.ChatSystem.Chat;
 
@@ -18,28 +18,24 @@ public class ChatPage extends AppCompatActivity {
     private Chat chat;
     private TextView totalTextView;
 
+        
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_page);
 
-        Intent intent = getIntent();
-        String posStr = String.valueOf(intent.getStringExtra("PositionIndex"));
         TextView nameView = findViewById(R.id.chats_name);
         TextView numberView = findViewById(R.id.chats_number);
-        int index = 0;
 
-        if (MainActivity.chats.size() == 0) {
-            String name = intent.getStringExtra("NameFromNew");
-            String phone = intent.getStringExtra("PhoneFromNew");
-            User user = new User(name, phone);
-            chat = new Chat(MainActivity.user, user, "");
-            nameView.setText(name);
-            numberView.setText(phone);
-        }
-        else {
-            this.chat = MainActivity.chats.get(index);
-        }
+        int index = Integer.parseInt(getIntent().getStringExtra("IndexFromMainPage"));
+
+        this.chat = MainActivity.chats.get(index);
+        User user = chat.getUser();
+        nameView.setText(user.getName());
+        numberView.setText(user.getPhone());
+
+
         totalTextView = findViewById(R.id.total);
 
         refresh();
@@ -53,8 +49,8 @@ public class ChatPage extends AppCompatActivity {
 
         receiveView.setOnClickListener(v -> {
             String str = editTextInputView.getText().toString();
-            chat.subTransaction(Long.parseLong(str));
             if(str.length() != 0) {
+                chat.subTransaction(Long.parseLong(str));
                 editTextInputView.setText(null);
                 chat.addMessage(str, true);
                 refresh();
@@ -63,8 +59,8 @@ public class ChatPage extends AppCompatActivity {
 
         sendView.setOnClickListener(v -> {
             String str = editTextInputView.getText().toString();
-            chat.addTransaction(Long.parseLong(str));
             if(str.length() != 0) {
+                chat.addTransaction(Long.parseLong(str));
                 editTextInputView.setText(null);
                 chat.addMessage(str, false);
                 refresh();
@@ -78,16 +74,6 @@ public class ChatPage extends AppCompatActivity {
         DateChatsAdapter adapter = new DateChatsAdapter(this, chat.getMessageWithDates());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        try {
-            Log.d("Frebfgregj", chat.get(0).toString());
-            Log.d("Frebfgregj", chat.get(1).toString());
-            Log.d("Frebfgregj", chat.get(2).toString());
-            Log.d("Frebfgregj", chat.get(3).toString());
-        }
-        catch (Exception e) {
-
-        }
 
 
         totalTextView.setText(String.valueOf(chat.getAmount()));

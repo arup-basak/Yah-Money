@@ -39,8 +39,7 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.ViewHo
         viewHolder.numbView.setText(localData[index][1]);
         viewHolder.container.setOnClickListener(v -> {
             Intent intent = new Intent(context, ChatPage.class);
-            intent.putExtra("PositionIndex", String.valueOf(index));
-            //Log.d("rugehge", String.valueOf(intent.getStringExtra("PositionIndex")));
+            intent.putExtra("IndexFromMainPage", String.valueOf(index));
             context.startActivity(intent);
         });
     }

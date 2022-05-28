@@ -32,12 +32,24 @@ public class MainActivity extends AppCompatActivity {
 
     private String KEY = "ChatData";
 
+    boolean bool = false;
+
     FloatingActionButton addCustomFab, addContactFab;
     ExtendedFloatingActionButton mAddFab;
     TextView addCustomActionText, addContactActionText;
     Boolean isAllFabVisible;
 
     EditText consoleEditText;
+
+
+    @Override
+    public void onResume()
+    {  // After a pause OR at startup
+        super.onResume();
+        if(bool) {
+            refresh();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         refresh();
+        bool = true;
 
         try {
             Toast.makeText(context, String.valueOf(chats.size()), Toast.LENGTH_SHORT).show();
@@ -186,9 +199,7 @@ public class MainActivity extends AppCompatActivity {
             alertDialog.cancel();
 
             Intent intent = new Intent(this, ChatPage.class);
-            intent.putExtra("NameFromNew", name);
-            intent.putExtra("phoneFromLogin", phone);
-            intent.putExtra("PositionIndex", chats.size() - 1);
+            intent.putExtra("IndexFromMainPage", String.valueOf(chats.size() - 1));
             startActivity(intent);
         });
         view.findViewById(R.id.alert_close).setOnClickListener(v -> alertDialog.cancel());
