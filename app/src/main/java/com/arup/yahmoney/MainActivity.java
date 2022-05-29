@@ -19,8 +19,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.arup.yahmoney.ChatSystem.Chat;
 import com.arup.yahmoney.ChatSystem.Chats;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;

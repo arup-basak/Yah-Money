@@ -38,7 +38,7 @@ public class ChatPage extends AppCompatActivity {
 
 
 
-        EditText editTextInputView = findViewById(R.id.type_addpage);
+        EditText editTextInputView = findViewById(R.id.type_add_page);
 
         Button receiveView = findViewById(R.id.receive);
         Button sendView = findViewById(R.id.send);

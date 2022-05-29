@@ -1,16 +1,20 @@
 <resources>
     <style name="app_theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/color1</item>
-        <item name="colorPrimaryVariant">@color/color3</item>
+        <item name="colorPrimaryVariant">@color/color2</item>
         <item name="colorOnPrimary">@color/color4</item>
+
+        <item name="colorPrimaryDark">@color/black</item>
+
+        <!-- Default Text Color-->
+        <item name="android:textColorPrimary">@color/color5</item>
 
         <!-- Default Background Color-->
         <item name="android:windowBackground">@color/color1</item>
 
         <!-- Default font-->
         <item name="android:fontFamily">@font/regular</item>
-        <!-- Default Text Color-->
-        <item name="android:textColor">@color/color5</item>
+
 
         <!-- Default Button Style  Improve Required-->
         <item name="android:actionButtonStyle">@drawable/button</item>
@@ -22,7 +26,5 @@
 
         <!-- Default Cursor -->
         <item name="android:textCursorDrawable">@drawable/cursor</item>
-
-
     </style>
 </resources>

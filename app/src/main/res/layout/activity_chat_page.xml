@@ -76,18 +76,17 @@
 
             <Button
                 android:id="@+id/receive"
-                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_weight="1"
-                android:text="@string/recived"
-                android:textColor="@color/color5" />
+                android:text="@string/received"
+                android:textColor="@color/color5"
+                tools:ignore="ButtonStyle,NestedWeights" />
 
             <Button
                 android:id="@+id/send"
-                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -95,12 +94,12 @@
                 android:layout_weight="1"
                 android:text="@string/send"
                 android:textColor="@color/color5"
-                tools:ignore="NestedWeights" />
+                tools:ignore="ButtonStyle,NestedWeights" />
 
         </LinearLayout>
 
         <EditText
-            android:id="@+id/type_addpage"
+            android:id="@+id/type_add_page"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="20dp"

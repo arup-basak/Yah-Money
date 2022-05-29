@@ -26,7 +26,7 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.size_right_chat, parent, false);
+                .inflate(R.layout.side_right_chat, parent, false);
         return new ViewHolder(view);
     }
 
