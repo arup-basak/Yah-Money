@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -20,19 +23,21 @@ import android.widget.Toast;
 
 import com.arup.yahmoney.ChatSystem.Chat;
 import com.arup.yahmoney.ChatSystem.Chats;
-import com.arup.yahmoney.data.Console;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 
 public class MainActivity extends AppCompatActivity {
+    @SuppressLint("StaticFieldLeak")
     public static Context context;
     public static Chats chats;
 
     static User user;
 
-    private String KEY = "ChatData";
 
-    boolean bool = false;
+    Gson gson;
+    private final String KEY = "ChatData";
+    private String JSON_KEY;
 
     FloatingActionButton addCustomFab, addContactFab;
     ExtendedFloatingActionButton mAddFab;
@@ -43,12 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public void onResume()
-    {  // After a pause OR at startup
+    public void onResume() {
         super.onResume();
-        if(bool) {
-            refresh();
-        }
+        refresh();
     }
 
     @Override
@@ -56,12 +58,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        findViewById(R.id.imageButton).setOnClickListener(v -> SaveDetails());
+
         Intent get_intent = getIntent();
         String name = get_intent.getStringExtra("nameFromLogin");
         String phoneNo = get_intent.getStringExtra("phoneFromLogin");
 
         user = new User(name, phoneNo);
 
+        JSON_KEY = user.toString();
+        gson = new Gson();
+        getDetails();
 
         consoleEditText = findViewById(R.id.console);
 
@@ -103,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 view -> {
                     Intent intent = new Intent(getApplicationContext(), contacts.class);
                     startActivity(intent);
+
                 });
 
         addCustomFab.setOnClickListener(
@@ -110,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         context = this;
-        chats = new Chats(user);
 
         consoleEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -120,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String command = consoleEditText.getText().toString();
+                //String command = consoleEditText.getText().toString();
             }
 
             @Override
@@ -132,37 +139,30 @@ public class MainActivity extends AppCompatActivity {
 
 
         refresh();
-        bool = true;
-
-        try {
-            Toast.makeText(context, String.valueOf(chats.size()), Toast.LENGTH_SHORT).show();
-
-        }
-        catch (Exception e) {}
-    }
-
-    private void SearchName(String command) {
-
     }
 
     private void getDetails() {
+        try {
+            SharedPreferences sp = getSharedPreferences(KEY, MODE_PRIVATE);
+            String json = sp.getString(JSON_KEY, "");
+            chats = gson.fromJson(json, Chats.class);
+            refresh();
 
+        }
+        catch (Exception e) {
+            chats = new Chats(user);
+            Log.d("Error", e.getMessage());
+
+        }
     }
 
-    private void SaveDetails(User user) {
-        ObjectPreference objectPreference = (ObjectPreference) this.getApplication();
+    private void SaveDetails() {
+        SharedPreferences preferences = getSharedPreferences(KEY, MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = preferences.edit();
 
-        chats.add(new Chat(MainActivity.user, user, null));
-
-        ComplexPreferences complexPreferences = objectPreference.getComplexPreference();
-        if(complexPreferences != null) {
-            complexPreferences.putObject(KEY, chats);
-            complexPreferences.commit();
-        }
-        else {
-            String TAG = "MainActivity";
-            android.util.Log.e(TAG, "Preference is null");
-        }
+        String json = gson.toJson(chats);
+        myEdit.putString(JSON_KEY, json);
+        myEdit.apply();
     }
 
     public void showDialog() {
@@ -174,18 +174,14 @@ public class MainActivity extends AppCompatActivity {
         final EditText nameEV = view.findViewById(R.id.alert_name);
         final EditText phoneEV = view.findViewById(R.id.alert_phone_no);
 
-
-
         final Button save = view.findViewById(R.id.alert_save);
-
 
         alert.setView(view);
         alert.setCancelable(false);
-        
+
         AlertDialog alertDialog = alert.create();
         alertDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         alertDialog.show();
-
 
         save.setOnClickListener(v -> {
             String name = nameEV.getText().toString();
