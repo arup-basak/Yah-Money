@@ -1,6 +1,6 @@
-package com.arup.yahmoney.ChatSystem;
+package com.arup.yahmoney.Library.ChatSystem;
 
-import com.arup.yahmoney.User;
+import com.arup.yahmoney.Library.User;
 
 import java.util.LinkedList;
 

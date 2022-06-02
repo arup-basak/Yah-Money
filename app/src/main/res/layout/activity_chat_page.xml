@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
@@ -45,6 +45,14 @@
                 android:paddingBottom="5dp"
                 android:text="@string/number" />
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/call_button"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/call" />
+
     </LinearLayout>
 
     <LinearLayout

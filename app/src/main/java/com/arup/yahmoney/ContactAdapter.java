@@ -21,6 +21,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.arup.yahmoney.Library.User;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;

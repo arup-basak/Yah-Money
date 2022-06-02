@@ -1,6 +1,4 @@
-package com.arup.yahmoney.ChatSystem;
-
-import android.util.Log;
+package com.arup.yahmoney.Library.ChatSystem;
 
 import androidx.annotation.NonNull;
 

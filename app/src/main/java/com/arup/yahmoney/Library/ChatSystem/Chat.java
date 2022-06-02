@@ -1,8 +1,8 @@
-package com.arup.yahmoney.ChatSystem;
+package com.arup.yahmoney.Library.ChatSystem;
 
 import android.annotation.SuppressLint;
 
-import com.arup.yahmoney.User;
+import com.arup.yahmoney.Library.User;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

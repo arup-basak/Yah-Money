@@ -1,15 +1,24 @@
 package com.arup.yahmoney;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.arup.yahmoney.ChatSystem.Chat;
+import com.arup.yahmoney.Library.ChatSystem.Chat;
+import com.arup.yahmoney.Library.User;
+
+import java.util.Objects;
 
 public class ChatPage extends AppCompatActivity {
 
@@ -20,6 +29,8 @@ public class ChatPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_page);
+
+        //Objects.requireNonNull(getSupportActionBar()).setTitle("grg");
 
         TextView nameView = findViewById(R.id.chats_name);
         TextView numberView = findViewById(R.id.chats_number);
@@ -32,11 +43,12 @@ public class ChatPage extends AppCompatActivity {
         numberView.setText(user.getPhone());
 
 
+        findViewById(R.id.call_button).setOnClickListener(v -> call(user.getPhone()));
+
+
         totalTextView = findViewById(R.id.total);
 
         refresh();
-
-
 
         EditText editTextInputView = findViewById(R.id.type_add_page);
 
@@ -81,6 +93,23 @@ public class ChatPage extends AppCompatActivity {
         }
         else {
             totalTextView.setTextColor(totalTextView.getContext().getColor(R.color.color5));
+        }
+    }
+
+    private void call(String number) {
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(ChatPage.this, new String[]{Manifest.permission.CALL_PHONE}, 1);
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                call(number);
+            }
+        }
+        else {
+            number = number.replace(" ", "");
+            number = number.replace("-", "");
+            number = number.replace("+91", "");
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setData(Uri.parse("tel:" + "+91" + number));
+            startActivity(callIntent);
         }
     }
 }

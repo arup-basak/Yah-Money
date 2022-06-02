@@ -1,4 +1,4 @@
-package com.arup.yahmoney;
+package com.arup.yahmoney.Library;
 
 import androidx.annotation.NonNull;
 

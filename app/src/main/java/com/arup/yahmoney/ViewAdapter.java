@@ -10,8 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.arup.yahmoney.ChatSystem.Chat;
-import com.arup.yahmoney.ChatSystem.Message;
+import com.arup.yahmoney.Library.ChatSystem.Chat;
+import com.arup.yahmoney.Library.ChatSystem.Message;
 
 public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.ViewHolder> {
     private final Context context;
