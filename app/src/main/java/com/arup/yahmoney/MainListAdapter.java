@@ -53,9 +53,9 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.ViewHo
         private final TextView numbView;
         public ViewHolder(@NonNull View view) {
             super(view);
-            container = view.findViewById(R.id.mainpage_container);
-            nameView = view.findViewById(R.id.mainpage_name);
-            numbView = view.findViewById(R.id.mainpage_amount);
+            container = view.findViewById(R.id.main_page_container);
+            nameView = view.findViewById(R.id.main_page_name);
+            numbView = view.findViewById(R.id.main_page_amount);
         }
     }
 }
