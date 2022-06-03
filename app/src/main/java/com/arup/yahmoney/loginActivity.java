@@ -3,12 +3,15 @@ package com.arup.yahmoney;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,14 +33,35 @@ public class loginActivity extends AppCompatActivity {
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
-
+    LinearLayout resendLayout;
 
     EditText phoneEditText, OTPEditText;
     Button reqOTPButton, submitOTP;
-    TextView timerTV, phoneNoWarn, OTPWarn;
+    TextView resendTV, phoneNoWarn, OTPWarn, timerTV;
 
     String name;
     String phone;
+
+    boolean activeResend = false;
+
+    private void ShowResendTimer() {
+        resendLayout.setVisibility(View.VISIBLE);
+        timerTV.setVisibility(View.VISIBLE);
+        resendTV.setVisibility(View.VISIBLE);
+        new CountDownTimer(60000, 1000) {
+
+            @SuppressLint("SetTextI18n")
+            public void onTick(long millisUntilFinished) {
+                timerTV.setText("OTP in " + millisUntilFinished / 1000 + " seconds");
+            }
+
+            public void onFinish() {
+                timerTV.setVisibility(View.GONE);
+                activeResend = true;
+            }
+        }.start();
+
+    }
 
     @Override
     public void onStart() {
@@ -61,9 +85,12 @@ public class loginActivity extends AppCompatActivity {
 
         reqOTPButton = findViewById(R.id.request_otp);
         submitOTP = findViewById(R.id.submit_otp);
-        timerTV = findViewById(R.id.login_timer);
+        resendTV = findViewById(R.id.resend_button);
+        timerTV = findViewById(R.id.resend_otp_text);
         phoneEditText = findViewById(R.id.phoneno_login);
         OTPEditText = findViewById(R.id.otp_login);
+
+        resendLayout = findViewById(R.id.Resend_Timer_layout);
 
         phoneNoWarn = findViewById(R.id.phoneNoWarn);
         OTPWarn = findViewById(R.id.OTPWarn);
@@ -107,6 +134,13 @@ public class loginActivity extends AppCompatActivity {
             }
         };
 
+        resendTV.setOnClickListener(v -> {
+            if(activeResend) {
+                String num = phoneEditText.getText().toString();
+                resendVerificationCode(num, mResendToken);
+            }
+        });
+
         submitOTP.setOnClickListener(v -> {
             String OTP = OTPEditText.getText().toString();
             if(OTP.length() != 6) {
@@ -119,7 +153,7 @@ public class loginActivity extends AppCompatActivity {
             String number = phoneEditText.getText().toString();
             if(number.length() == 10) {
                 startPhoneNumberVerification(number);
-
+                ShowResendTimer();
             }
             else {
                 phoneNoWarn.setVisibility(View.VISIBLE);
