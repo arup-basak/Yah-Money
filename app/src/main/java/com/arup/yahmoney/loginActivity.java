@@ -87,7 +87,7 @@ public class loginActivity extends AppCompatActivity {
         submitOTP = findViewById(R.id.submit_otp);
         resendTV = findViewById(R.id.resend_button);
         timerTV = findViewById(R.id.resend_otp_text);
-        phoneEditText = findViewById(R.id.phoneno_login);
+        phoneEditText = findViewById(R.id.phone_no_login);
         OTPEditText = findViewById(R.id.otp_login);
 
         resendLayout = findViewById(R.id.Resend_Timer_layout);
