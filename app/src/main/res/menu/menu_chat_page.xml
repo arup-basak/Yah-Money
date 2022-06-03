@@ -7,10 +7,10 @@
     android:orientation="vertical">
 
     <item
-        android:title="refresh"
-        android:id="@+id/refresh"
+        android:title="@string/call"
+        android:id="@+id/call"
         android:orderInCategory="100"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/call"/>
+        android:icon="@drawable/ic_baseline_call_24"/>
 
 </menu>

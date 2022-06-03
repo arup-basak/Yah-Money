@@ -6,54 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".ChatPage">
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="0dp"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color2"
-        android:orientation="horizontal"
-        android:baselineAligned="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            tools:ignore="UselessParent">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/tempToolBar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/menu_chat_page"
+            app:navigationIcon="@drawable/ic_baseline_arrow_back_24"/>
 
-            <TextView
-                android:id="@+id/chats_name"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="20dp"
-                android:layout_weight="1"
-                android:gravity="center|right|left"
-                android:paddingTop="5dp"
-                android:text="@string/name"
-                android:textSize="20sp"
-                tools:ignore="NestedWeights,RtlHardcoded" />
-
-            <TextView
-                android:id="@+id/chats_number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_weight="1"
-                android:paddingBottom="5dp"
-                android:text="@string/number" />
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/call_button"
-            android:layout_width="20dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/call" />
-
-    </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -130,6 +99,6 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

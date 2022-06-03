@@ -23,22 +23,44 @@ public class ChatPage extends AppCompatActivity {
     private Chat chat;
     private TextView totalTextView;
 
+    private User user;
+
+    /*@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.call:
+                call(user.getPhone());
+                Toast.makeText(this, "Call", Toast.LENGTH_SHORT).show();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }*/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_page);
 
+
+
+        /*Toolbar tb = (Toolbar) findViewById(R.id.tempToolBar);
+        tb.setTitle("Hello");*/
+
         //Objects.requireNonNull(getSupportActionBar()).setTitle("grg");
 
-        TextView nameView = findViewById(R.id.chats_name);
-        TextView numberView = findViewById(R.id.chats_number);
+        /*TextView nameView = findViewById(R.id.chats_name);
+        TextView numberView = findViewById(R.id.chats_number);*/
 
         int index = Integer.parseInt(getIntent().getStringExtra("IndexFromMainPage"));
 
         this.chat = MainActivity.chats.get(index);
-        User user = chat.getUser();
-        nameView.setText(user.getName());
-        numberView.setText(user.getPhone());
+        user = chat.getUser();
+        String name = user.getName();
+        /*nameView.setText(user.getName());
+        numberView.setText(user.getPhone());*/
 
 
         //findViewById(R.id.call_button).setOnClickListener(v -> call(user.getPhone()));
