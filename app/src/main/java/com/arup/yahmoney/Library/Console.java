@@ -1,4 +1,4 @@
-package com.arup.yahmoney.data;
+package com.arup.yahmoney.Library;
 
 import java.util.Arrays;
 
