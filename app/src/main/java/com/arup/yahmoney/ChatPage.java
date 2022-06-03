@@ -43,7 +43,7 @@ public class ChatPage extends AppCompatActivity {
         numberView.setText(user.getPhone());
 
 
-        findViewById(R.id.call_button).setOnClickListener(v -> call(user.getPhone()));
+        //findViewById(R.id.call_button).setOnClickListener(v -> call(user.getPhone()));
 
 
         totalTextView = findViewById(R.id.total);
@@ -98,7 +98,7 @@ public class ChatPage extends AppCompatActivity {
 
     private void call(String number) {
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(ChatPage.this, new String[]{Manifest.permission.CALL_PHONE}, 1);
+            ActivityCompat.requestPermissions(ChatPage.this, new String[]{Manifest.permission.CALL_PHONE}, 100);
             if(ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                 call(number);
             }

@@ -1,6 +1,7 @@
 package com.arup.yahmoney;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -88,8 +89,14 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
             }
             else {
                 Toast.makeText(context, numbers[0], Toast.LENGTH_SHORT).show();
+                MainActivity.tempUser = new User(list.get(index).getName(), numbers[0]);
+                finish();
             }
         });
+    }
+
+    private void finish() {
+        ((Activity)context).finish();
     }
 
     @Override
@@ -188,7 +195,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
             holder.button.setText(numbers[index]);
             holder.button.setOnClickListener(v -> {
                 user.changePhone(numbers[index]);
-                startActivity();
+                finish();
             });
         }
 
@@ -205,12 +212,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
             }
         }
 
-        private void startActivity() {
-            Intent intent = new Intent(context, MainActivity.class);
-            intent.putExtra("NewUserNameFromContact", user.getName());
-            intent.putExtra("NewUserContactFromContact", user.getPhone());
-            context.startActivity(intent);
-        }
+
     }
 }
 

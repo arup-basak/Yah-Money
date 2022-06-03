@@ -2,13 +2,17 @@ package com.arup.yahmoney;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -33,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
     static User user;
 
+    static User tempUser;
+
 
     Gson gson;
     private final String KEY = "ChatData";
@@ -49,15 +55,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        if(tempUser != null) {
+            chats.add(new Chat(user, tempUser, ""));
+            tempUser = null;
+        }
         refresh();
+        SaveDetails();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        findViewById(R.id.imageButton).setOnClickListener(v -> SaveDetails());
 
         Intent get_intent = getIntent();
         String name = get_intent.getStringExtra("nameFromLogin");
@@ -107,9 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
         addContactFab.setOnClickListener(
                 view -> {
-                    Intent intent = new Intent(getApplicationContext(), contacts.class);
-                    startActivity(intent);
-
+                    OpenContacts();
                 });
 
         addCustomFab.setOnClickListener(
@@ -191,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
             chats.add(new Chat(user, user2, null));
 
             refresh();
+            SaveDetails();
             alertDialog.cancel();
 
             Intent intent = new Intent(this, ChatPage.class);
@@ -212,5 +220,19 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView rv = findViewById(R.id.mainpage_recycler);
         rv.setAdapter(adapter);
         rv.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    private void OpenContacts() {
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_CONTACTS}, 100);
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+                OpenContacts();
+            }
+        }
+        else {
+            Intent intent = new Intent(getApplicationContext(), contacts.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }
