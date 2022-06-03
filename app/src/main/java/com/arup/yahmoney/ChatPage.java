@@ -18,8 +18,6 @@ import android.widget.TextView;
 import com.arup.yahmoney.Library.ChatSystem.Chat;
 import com.arup.yahmoney.Library.User;
 
-import java.util.Objects;
-
 public class ChatPage extends AppCompatActivity {
 
     private Chat chat;

@@ -79,7 +79,7 @@ public class loginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("nameFromLogin", "ARUP");
         intent.putExtra("phoneFromLogin", "9732919663");
-        //startActivity(intent);
+        startActivity(intent);
 
         mAuth = FirebaseAuth.getInstance();
 
