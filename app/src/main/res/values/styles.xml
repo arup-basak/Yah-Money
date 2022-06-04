@@ -7,7 +7,7 @@
         <item name="colorPrimaryDark">@color/black</item>
 
         <!-- Default Text Color-->
-        <item name="android:color">@color/color5</item>
+        <item name="android:textColor">@color/color5</item>
 
         <!-- Default Background Color-->
         <item name="android:windowBackground">@color/color1</item>

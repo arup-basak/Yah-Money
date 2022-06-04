@@ -75,12 +75,6 @@ public class loginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("nameFromLogin", "ARUP");
-        intent.putExtra("phoneFromLogin", "9732919663");
-        startActivity(intent);
-
         mAuth = FirebaseAuth.getInstance();
 
         reqOTPButton = findViewById(R.id.request_otp);
@@ -95,10 +89,11 @@ public class loginActivity extends AppCompatActivity {
         phoneNoWarn = findViewById(R.id.phoneNoWarn);
         OTPWarn = findViewById(R.id.OTPWarn);
 
-        EnableDisableButton(reqOTPButton, true);
+        /*EnableDisableButton(reqOTPButton, true);
         EnableDisableButton(submitOTP, false);
         OTPEditText.setEnabled(false);
-
+*/
+        submitOTP.setEnabled(true);
 
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
@@ -136,8 +131,8 @@ public class loginActivity extends AppCompatActivity {
 
         resendTV.setOnClickListener(v -> {
             if(activeResend) {
-                String num = phoneEditText.getText().toString();
-                resendVerificationCode(num, mResendToken);
+                phone = phoneEditText.getText().toString();
+                resendVerificationCode(phone, mResendToken);
             }
         });
 
@@ -145,7 +140,9 @@ public class loginActivity extends AppCompatActivity {
             String OTP = OTPEditText.getText().toString();
             if(OTP.length() != 6) {
                 OTPWarn.setVisibility(View.VISIBLE);
-                //verifyOTP(OTP);
+            }
+            else{
+                verifyPhoneNumberWithCode(OTP);
             }
         });
 
@@ -154,11 +151,14 @@ public class loginActivity extends AppCompatActivity {
             if(number.length() == 10) {
                 startPhoneNumberVerification(number);
                 ShowResendTimer();
+
             }
             else {
                 phoneNoWarn.setVisibility(View.VISIBLE);
             }
         });
+
+        //SmsReceiver.bindListener(messageText -> OTPEditText.setText(messageText));
     }
 
     private void EnableDisableButton(View view, boolean enable) {
@@ -167,6 +167,7 @@ public class loginActivity extends AppCompatActivity {
     }
 
     private void openActivity() {
+        name = "Arup Basak";
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("nameFromLogin", name);
         intent.putExtra("phoneFromLogin", phone);
@@ -185,9 +186,11 @@ public class loginActivity extends AppCompatActivity {
         PhoneAuthProvider.verifyPhoneNumber(options);
     }
 
-    private void verifyPhoneNumberWithCode(String verificationId, String code) {
+    private void verifyPhoneNumberWithCode(String code) {
         // [START verify_with_code]
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
+        Toast.makeText(this, code, Toast.LENGTH_SHORT).show();
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, code);
+        signInWithPhoneAuthCredential(credential);//written buy be
         // [END verify_with_code]
     }
 
@@ -211,6 +214,7 @@ public class loginActivity extends AppCompatActivity {
                         Log.d(TAG, "signInWithCredential:success");
 
                         FirebaseUser user = task.getResult().getUser();
+                        openActivity();
                     } else {
                         Log.w(TAG, "signInWithCredential:failure", task.getException());
                         if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
@@ -221,6 +225,6 @@ public class loginActivity extends AppCompatActivity {
     }
 
     private void updateUI(FirebaseUser user) {
-
+        user.getUid();
     }
 }
