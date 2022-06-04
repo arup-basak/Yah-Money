@@ -80,6 +80,13 @@ public class loginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
+        name = "Arup Basak";
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("nameFromLogin", name);
+        intent.putExtra("phoneFromLogin", "phone");
+        startActivity(intent);
+
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("users");
         mAuth = FirebaseAuth.getInstance();

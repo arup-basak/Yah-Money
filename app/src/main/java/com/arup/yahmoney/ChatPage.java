@@ -11,12 +11,15 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.arup.yahmoney.Library.ChatSystem.Chat;
 import com.arup.yahmoney.Library.User;
+import com.google.android.material.appbar.MaterialToolbar;
 
 public class ChatPage extends AppCompatActivity {
 
@@ -44,21 +47,21 @@ public class ChatPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_page);
 
+        MaterialToolbar toolbar = findViewById(R.id.tempToolBar);
 
-
-        /*Toolbar tb = (Toolbar) findViewById(R.id.tempToolBar);
-        tb.setTitle("Hello");*/
-
-        //Objects.requireNonNull(getSupportActionBar()).setTitle("grg");
-
-        /*TextView nameView = findViewById(R.id.chats_name);
-        TextView numberView = findViewById(R.id.chats_number);*/
 
         int index = Integer.parseInt(getIntent().getStringExtra("IndexFromMainPage"));
 
         this.chat = MainActivity.chats.get(index);
         user = chat.getUser();
         String name = user.getName();
+        toolbar.setTitle(name);
+        toolbar.findViewById(R.id.call).setOnClickListener(v -> call(user.getPhone()));
+        toolbar.setNavigationOnClickListener(v-> {
+            finish();
+        });
+
+
         /*nameView.setText(user.getName());
         numberView.setText(user.getPhone());*/
 

@@ -12,5 +12,4 @@
         android:orderInCategory="100"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_baseline_call_24"/>
-
 </menu>
