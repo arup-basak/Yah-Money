@@ -23,6 +23,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.concurrent.TimeUnit;
 
@@ -34,6 +36,9 @@ public class loginActivity extends AppCompatActivity {
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
     LinearLayout resendLayout;
+
+    FirebaseDatabase database;
+    DatabaseReference myRef;
 
     EditText phoneEditText, OTPEditText;
     Button reqOTPButton, submitOTP;
@@ -75,6 +80,8 @@ public class loginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("users");
         mAuth = FirebaseAuth.getInstance();
 
         reqOTPButton = findViewById(R.id.request_otp);
@@ -89,22 +96,12 @@ public class loginActivity extends AppCompatActivity {
         phoneNoWarn = findViewById(R.id.phoneNoWarn);
         OTPWarn = findViewById(R.id.OTPWarn);
 
-        /*EnableDisableButton(reqOTPButton, true);
-        EnableDisableButton(submitOTP, false);
-        OTPEditText.setEnabled(false);
-*/
         submitOTP.setEnabled(true);
 
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             @Override
             public void onVerificationCompleted(@NonNull PhoneAuthCredential credential) {
-                // This callback will be invoked in two situations:
-                // 1 - Instant verification. In some cases the phone number can be instantly
-                //     verified without needing to send or enter a verification code.
-                // 2 - Auto-retrieval. On some devices Google Play services can automatically
-                //     detect the incoming verification SMS and perform verification without
-                //     user action.
                 Log.d(TAG, "onVerificationCompleted:" + credential);
 
                 signInWithPhoneAuthCredential(credential);
@@ -113,7 +110,6 @@ public class loginActivity extends AppCompatActivity {
             @Override
             public void onVerificationFailed(@NonNull FirebaseException e) {
                 Log.w(TAG, "onVerificationFailed", e);
-
                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
                     Toast.makeText(loginActivity.this, "Invalid Request", Toast.LENGTH_SHORT).show();
                 } else if (e instanceof FirebaseTooManyRequestsException) {
@@ -158,7 +154,7 @@ public class loginActivity extends AppCompatActivity {
             }
         });
 
-        //SmsReceiver.bindListener(messageText -> OTPEditText.setText(messageText));
+        SmsReceiver.bindListener(messageText -> OTPEditText.setText(messageText));
     }
 
     private void EnableDisableButton(View view, boolean enable) {
@@ -218,13 +214,13 @@ public class loginActivity extends AppCompatActivity {
                     } else {
                         Log.w(TAG, "signInWithCredential:failure", task.getException());
                         if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                            // The verification code entered was invalid
+                            OTPWarn.setVisibility(View.VISIBLE);
                         }
                     }
                 });
     }
 
     private void updateUI(FirebaseUser user) {
-        user.getUid();
+
     }
 }

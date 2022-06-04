@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "947856427717-qhmnejkcabppm7jbrf5ih0cu4mk0537a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arup.yahmoney",
+            "certificate_hash": "2fc6ea4ddc25935d421c36191b3a9847d337645a"
+          }
+        },
+        {
           "client_id": "947856427717-tn962cuf2rsucokho2v74cchbod7t0me.apps.googleusercontent.com",
           "client_type": 3
         }
