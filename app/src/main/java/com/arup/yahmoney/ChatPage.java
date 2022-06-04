@@ -11,11 +11,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.arup.yahmoney.Library.ChatSystem.Chat;
 import com.arup.yahmoney.Library.User;
@@ -27,20 +25,6 @@ public class ChatPage extends AppCompatActivity {
     private TextView totalTextView;
 
     private User user;
-
-    /*@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.call:
-                call(user.getPhone());
-                Toast.makeText(this, "Call", Toast.LENGTH_SHORT).show();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-
-        }
-    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,16 +41,7 @@ public class ChatPage extends AppCompatActivity {
         String name = user.getName();
         toolbar.setTitle(name);
         toolbar.findViewById(R.id.call).setOnClickListener(v -> call(user.getPhone()));
-        toolbar.setNavigationOnClickListener(v-> {
-            finish();
-        });
-
-
-        /*nameView.setText(user.getName());
-        numberView.setText(user.getPhone());*/
-
-
-        //findViewById(R.id.call_button).setOnClickListener(v -> call(user.getPhone()));
+        toolbar.setNavigationOnClickListener(v-> finish());
 
 
         totalTextView = findViewById(R.id.total);
