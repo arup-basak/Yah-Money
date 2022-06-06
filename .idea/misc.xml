@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/arupb/My Drive/Codes/Android Studio/YahMoney/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3635" />
         <entry key="..\:/Users/arupb/My Drive/Codes/Android Studio/YahMoney/app/src/main/res/drawable/alert.xml" value="0.3635" />
         <entry key="..\:/Users/arupb/My Drive/Codes/Android Studio/YahMoney/app/src/main/res/drawable/button.xml" value="0.3635" />
         <entry key="..\:/Users/arupb/My Drive/Codes/Android Studio/YahMoney/app/src/main/res/drawable/button_disable.xml" value="0.3635" />
@@ -12,9 +13,16 @@
         <entry key="..\:/Users/arupb/My Drive/Codes/Android Studio/YahMoney/app/src/main/res/drawable/datainput_back.xml" value="0.3635" />
         <entry key="..\:/Users/arupb/My Drive/Codes/Android Studio/YahMoney/app/src/main/res/drawable/date_background.xml" value="0.3625" />
         <entry key="..\:/Users/arupb/My Drive/Codes/Android Studio/YahMoney/app/src/main/res/drawable/edit_text_back.xml" value="0.3635" />
+        <entry key="..\:/Users/arupb/My Drive/Codes/Android Studio/YahMoney/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1935" />
+        <entry key="..\:/Users/arupb/My Drive/Codes/Android Studio/YahMoney/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.3635" />
+        <entry key="..\:/Users/arupb/My Drive/Codes/Android Studio/YahMoney/app/src/main/res/drawable/ic_baseline_call_24.xml" value="0.3635" />
+        <entry key="..\:/Users/arupb/My Drive/Codes/Android Studio/YahMoney/app/src/main/res/drawable/ic_baseline_notifications_24.xml" value="0.3635" />
+        <entry key="..\:/Users/arupb/My Drive/Codes/Android Studio/YahMoney/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.3635" />
+        <entry key="..\:/Users/arupb/My Drive/Codes/Android Studio/YahMoney/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3635" />
         <entry key="..\:/Users/arupb/My Drive/Codes/Android Studio/YahMoney/app/src/main/res/drawable/image_view_background.xml" value="0.3635" />
         <entry key="..\:/Users/arupb/My Drive/Codes/Android Studio/YahMoney/app/src/main/res/drawable/left_background.xml" value="0.3635" />
         <entry key="..\:/Users/arupb/My Drive/Codes/Android Studio/YahMoney/app/src/main/res/drawable/login_back.xml" value="0.3635" />
+        <entry key="..\:/Users/arupb/My Drive/Codes/Android Studio/YahMoney/app/src/main/res/drawable/login_view_back.xml" value="0.3635" />
         <entry key="..\:/Users/arupb/My Drive/Codes/Android Studio/YahMoney/app/src/main/res/drawable/loginview_back.xml" value="0.3635" />
         <entry key="..\:/Users/arupb/My Drive/Codes/Android Studio/YahMoney/app/src/main/res/drawable/mainpage_rec_back.xml" value="0.3635" />
         <entry key="..\:/Users/arupb/My Drive/Codes/Android Studio/YahMoney/app/src/main/res/drawable/menu.xml" value="0.3625" />
