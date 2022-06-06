@@ -9,18 +9,16 @@
     tools:context=".loginActivity">
 
     <LinearLayout
+        android:id="@+id/login_phone_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
         android:background="@drawable/login_view_back"
         android:orientation="vertical"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.441">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textView5"
@@ -68,12 +66,12 @@
             android:layout_marginEnd="40dp"
             android:ems="10"
             android:hint="@string/type_otp"
+            android:importantForAutofill="no"
             android:inputType="number"
             android:maxLength="6"
             android:textColor="@color/color5"
             android:textColorHint="@color/color5_trans2"
-            android:textCursorDrawable="@drawable/cursor"
-            android:importantForAutofill="no" />
+            android:textCursorDrawable="@drawable/cursor" />
 
         <TextView
             android:id="@+id/OTPWarn"
@@ -129,8 +127,8 @@
                 android:id="@+id/resend_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginEnd="5dp"
+                android:gravity="center"
                 android:text="@string/resend"
                 android:textColor="@color/color5"
                 android:textStyle="bold" />
@@ -142,4 +140,5 @@
                 android:textColor="@color/color5" />
         </LinearLayout>
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

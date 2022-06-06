@@ -55,4 +55,7 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="resend">Resend</string>
     <string name="call">call</string>
+    <string name="type_name">Type Name...</string>
+    <string name="save">Save</string>
+    <string name="type_your_name">Type Your Name...</string>
 </resources>

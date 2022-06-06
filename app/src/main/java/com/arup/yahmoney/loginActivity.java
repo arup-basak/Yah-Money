@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -25,17 +26,20 @@ import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
 
 import java.util.concurrent.TimeUnit;
 
 public class loginActivity extends AppCompatActivity {
+    Gson GSON;
     private FirebaseAuth mAuth;
     private static final String TAG = "PhoneAuthActivity";
+    private static final String MY_PREF = "User_Data";
     private String mVerificationId;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
-    LinearLayout resendLayout;
+    LinearLayout numberLinLayout;
 
     FirebaseDatabase database;
     DatabaseReference myRef;
@@ -44,13 +48,14 @@ public class loginActivity extends AppCompatActivity {
     Button reqOTPButton, submitOTP;
     TextView resendTV, phoneNoWarn, OTPWarn, timerTV;
 
-    String name;
     String phone;
+
+    String UID;
 
     boolean activeResend = false;
 
     private void ShowResendTimer() {
-        resendLayout.setVisibility(View.VISIBLE);
+        numberLinLayout.setVisibility(View.VISIBLE);
         timerTV.setVisibility(View.VISIBLE);
         resendTV.setVisibility(View.VISIBLE);
         new CountDownTimer(60000, 1000) {
@@ -65,7 +70,6 @@ public class loginActivity extends AppCompatActivity {
                 activeResend = true;
             }
         }.start();
-
     }
 
     @Override
@@ -79,13 +83,7 @@ public class loginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
-        name = "Arup Basak";
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("nameFromLogin", name);
-        intent.putExtra("phoneFromLogin", "phone");
-        startActivity(intent);
+        GSON = new Gson();
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("users");
@@ -98,10 +96,13 @@ public class loginActivity extends AppCompatActivity {
         phoneEditText = findViewById(R.id.phone_no_login);
         OTPEditText = findViewById(R.id.otp_login);
 
-        resendLayout = findViewById(R.id.Resend_Timer_layout);
-
         phoneNoWarn = findViewById(R.id.phoneNoWarn);
         OTPWarn = findViewById(R.id.OTPWarn);
+
+        numberLinLayout = findViewById(R.id.login_phone_view);
+
+        this.overridePendingTransition(R.anim.anim_right_to_left, R.anim.anim_left_to_right);
+//        namLinLayout = findViewById(R.id.login_type_name_view);
 
         submitOTP.setEnabled(true);
 
@@ -169,14 +170,6 @@ public class loginActivity extends AppCompatActivity {
         view.setBackgroundResource(enable ? R.drawable.button : R.drawable.button_disable);
     }
 
-    private void openActivity() {
-        name = "Arup Basak";
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("nameFromLogin", name);
-        intent.putExtra("phoneFromLogin", phone);
-        startActivity(intent);
-    }
-
     private void startPhoneNumberVerification(String phoneNumber) {
         phoneNumber = "+91" + phoneNumber;
         PhoneAuthOptions options =
@@ -190,8 +183,6 @@ public class loginActivity extends AppCompatActivity {
     }
 
     private void verifyPhoneNumberWithCode(String code) {
-        // [START verify_with_code]
-        Toast.makeText(this, code, Toast.LENGTH_SHORT).show();
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(mVerificationId, code);
         signInWithPhoneAuthCredential(credential);//written buy be
         // [END verify_with_code]
@@ -215,9 +206,16 @@ public class loginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         Log.d(TAG, "signInWithCredential:success");
-
                         FirebaseUser user = task.getResult().getUser();
-                        openActivity();
+                        UID = user.getUid();
+                        SaveUserData(user);
+
+                        Intent intent = new Intent(this, login2.class);
+                        intent.putExtra("phone", phone);
+                        intent.putExtra("uid", UID);
+
+                        startActivity(intent);
+
                     } else {
                         Log.w(TAG, "signInWithCredential:failure", task.getException());
                         if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
@@ -229,5 +227,13 @@ public class loginActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
 
+    }
+
+    private void SaveUserData(FirebaseUser user) {
+        String userString = GSON.toJson(user);
+        SharedPreferences.Editor editor = getSharedPreferences(MY_PREF, MODE_PRIVATE).edit();
+        editor.putString("user", userString);
+        editor.putString("uid", UID);
+        editor.apply();
     }
 }
