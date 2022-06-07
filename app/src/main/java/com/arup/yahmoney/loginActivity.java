@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.arup.yahmoney.Library.User;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,7 +35,7 @@ public class loginActivity extends AppCompatActivity {
     Gson GSON;
     private FirebaseAuth mAuth;
     private static final String TAG = "PhoneAuthActivity";
-    private static final String MY_PREF = "User_Data";
+    public static final String MY_PREF = "User_Data";
     private String mVerificationId;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
@@ -105,6 +106,8 @@ public class loginActivity extends AppCompatActivity {
 //        namLinLayout = findViewById(R.id.login_type_name_view);
 
         submitOTP.setEnabled(true);
+
+        getUserData();
 
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
@@ -208,7 +211,6 @@ public class loginActivity extends AppCompatActivity {
                         Log.d(TAG, "signInWithCredential:success");
                         FirebaseUser user = task.getResult().getUser();
                         UID = user.getUid();
-                        SaveUserData(user);
 
                         Intent intent = new Intent(this, login2.class);
                         intent.putExtra("phone", phone);
@@ -229,11 +231,22 @@ public class loginActivity extends AppCompatActivity {
 
     }
 
-    private void SaveUserData(FirebaseUser user) {
-        String userString = GSON.toJson(user);
-        SharedPreferences.Editor editor = getSharedPreferences(MY_PREF, MODE_PRIVATE).edit();
-        editor.putString("user", userString);
-        editor.putString("uid", UID);
-        editor.apply();
+    private void getUserData() {
+        SharedPreferences sh = getSharedPreferences(MY_PREF, MODE_PRIVATE);
+
+        String json = sh.getString("user", "");
+        String uid = sh.getString("uid", "");
+        if(json.length() != 0) {
+            User user = GSON.fromJson(json, User.class);
+
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("nameFromLogin", user.getName());
+            intent.putExtra("phoneFromLogin", user.getPhone());
+            intent.putExtra("uidFromLogin", uid);
+            startActivity(intent);
+            finish();
+        }
     }
+
+
 }
