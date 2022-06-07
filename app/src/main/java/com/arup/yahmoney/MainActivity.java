@@ -28,6 +28,8 @@ import com.arup.yahmoney.Library.ChatSystem.Chats;
 import com.arup.yahmoney.Library.User;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     static User tempUser;
 
+    FirebaseDatabase database;
+    DatabaseReference myRef;
 
     Gson gson;
     private final String KEY = "ChatData";
@@ -68,11 +72,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent get_intent = getIntent();
-        String name = get_intent.getStringExtra("nameFromLogin");
-        String phoneNo = get_intent.getStringExtra("phoneFromLogin");
+        database = FirebaseDatabase.getInstance("https://yah--money-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
-        user = new User(name, phoneNo);
+
+        Intent get_intent = getIntent();
+        String json = get_intent.getStringExtra("userJSONFromLogin");
+
+        user = gson.fromJson(json, User.class);
+
+        myRef = database.getReference(user.getUid());
+        myRef.setValue("Hello World");
+
 
         JSON_KEY = user.toString();
         gson = new Gson();

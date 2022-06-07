@@ -37,8 +37,7 @@ public class login2 extends AppCompatActivity {
         submit.setOnClickListener(v -> {
             name = nameEditText.getText().toString();
             Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("nameFromLogin", name);
-            intent.putExtra("phoneFromLogin", phone);
+            intent.putExtra("userJSONFromLogin", GSON.toJson(new User(name, phone, uid)));
             SaveUserData();
             startActivity(intent);
             finish();

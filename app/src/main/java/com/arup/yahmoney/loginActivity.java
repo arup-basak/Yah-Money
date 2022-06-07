@@ -235,14 +235,9 @@ public class loginActivity extends AppCompatActivity {
         SharedPreferences sh = getSharedPreferences(MY_PREF, MODE_PRIVATE);
 
         String json = sh.getString("user", "");
-        String uid = sh.getString("uid", "");
         if(json.length() != 0) {
-            User user = GSON.fromJson(json, User.class);
-
             Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("nameFromLogin", user.getName());
-            intent.putExtra("phoneFromLogin", user.getPhone());
-            intent.putExtra("uidFromLogin", uid);
+            intent.putExtra("userJSONFromLogin", json);
             startActivity(intent);
             finish();
         }
