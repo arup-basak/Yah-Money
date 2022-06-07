@@ -89,7 +89,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
             }
             else {
                 Toast.makeText(context, numbers[0], Toast.LENGTH_SHORT).show();
-                MainActivity.tempUser = new User(list.get(index).getName(), numbers[0]);
+                MainActivity.tempUser = new User(list.get(index).getName(), numbers[0], null);
                 finish();
             }
         });

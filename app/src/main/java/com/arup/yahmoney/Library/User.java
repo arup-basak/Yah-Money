@@ -5,16 +5,14 @@ import androidx.annotation.NonNull;
 public class User {
     String name;
     String phone;
-    String uid = "";
-    public User(String name, String phone) {
-        this.name = name;
-        this.phone = phone;
-    }
+    String uid = null;
 
     public User(String name, String phone, String uid) {
         this.name = name;
         this.phone = phone;
-        this.uid = uid;
+        if(uid != null) {
+            this.uid = uid;
+        }
     }
 
     public void changeName(String name) {

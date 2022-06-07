@@ -36,8 +36,9 @@ public class login2 extends AppCompatActivity {
 
         submit.setOnClickListener(v -> {
             name = nameEditText.getText().toString();
+            User user = new User(name, phone, uid);
             Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("userJSONFromLogin", GSON.toJson(new User(name, phone, uid)));
+            intent.putExtra("userJSONFromLogin", GSON.toJson(user));
             SaveUserData();
             startActivity(intent);
             finish();
@@ -46,7 +47,7 @@ public class login2 extends AppCompatActivity {
     }
 
     private void SaveUserData() {
-        String userString = GSON.toJson(new User(name, phone));
+        String userString = GSON.toJson(new User(name, phone, uid));
         SharedPreferences.Editor editor = getSharedPreferences(loginActivity.MY_PREF, MODE_PRIVATE).edit();
         editor.putString("user", userString);
         editor.putString("uid", uid);

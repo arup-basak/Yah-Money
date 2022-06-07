@@ -49,7 +49,7 @@ public class contacts extends AppCompatActivity {
             while (cursor.moveToNext()) {
                 @SuppressLint("Range") String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
                 @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-                list.add(new User(name, id));
+                list.add(new User(name, id, null));
             }
         }
         sort(list);
@@ -58,7 +58,7 @@ public class contacts extends AppCompatActivity {
 
     private void sort(LinkedList<User> users) {
         int n = users.size();
-        User user = new User("", "");
+        User user = new User("", "", "");
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
                 if (users.get(i).getName().compareTo(users.get(j).getName()) > 0) {

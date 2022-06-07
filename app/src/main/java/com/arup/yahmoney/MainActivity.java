@@ -44,9 +44,8 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference myRef;
 
-    Gson gson;
+    Gson GSON;
     private final String KEY = "ChatData";
-    private String JSON_KEY;
 
     FloatingActionButton addCustomFab, addContactFab;
     ExtendedFloatingActionButton mAddFab;
@@ -72,20 +71,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        database = FirebaseDatabase.getInstance("https://yah--money-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
+        GSON = new Gson();
 
         Intent get_intent = getIntent();
         String json = get_intent.getStringExtra("userJSONFromLogin");
 
-        user = gson.fromJson(json, User.class);
+        user = GSON.fromJson(json, User.class);
 
-        myRef = database.getReference(user.getUid());
-        myRef.setValue("Hello World");
+        Log.d("gheg", json);
 
+        database = FirebaseDatabase.getInstance("https://yah--money-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        myRef = database.getReference().child(user.getUid());
 
-        JSON_KEY = user.toString();
-        gson = new Gson();
+        SaveOnline();
+
         getDetails();
 
         consoleEditText = findViewById(R.id.console);
@@ -160,8 +160,8 @@ public class MainActivity extends AppCompatActivity {
     private void getDetails() {
         try {
             SharedPreferences sp = getSharedPreferences(KEY, MODE_PRIVATE);
-            String json = sp.getString(JSON_KEY, "");
-            chats = gson.fromJson(json, Chats.class);
+            String json = sp.getString(user.getUid(), "");
+            chats = GSON.fromJson(json, Chats.class);
             refresh();
 
         }
@@ -176,8 +176,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences(KEY, MODE_PRIVATE);
         SharedPreferences.Editor myEdit = preferences.edit();
 
-        String json = gson.toJson(chats);
-        myEdit.putString(JSON_KEY, json);
+        String json = GSON.toJson(chats);
+        myEdit.putString(user.getUid(), json);
         myEdit.apply();
     }
 
@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
             String name = nameEV.getText().toString();
             String phone = phoneEV.getText().toString();
 
-            User user2 = new User(name, phone);
+            User user2 = new User(name, phone, null);
 
             chats.add(new Chat(user, user2, null));
 
@@ -244,5 +244,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+    }
+
+    private void SaveOnline() {
+        myRef.setValue("This");
     }
 }
