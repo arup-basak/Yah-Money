@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.arup.yahmoney.Adaptes.ContactAdapter;
 import com.arup.yahmoney.Library.User;
 
 import java.util.LinkedList;

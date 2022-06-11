@@ -1,4 +1,4 @@
-package com.arup.yahmoney;
+package com.arup.yahmoney.Adaptes;
 
 
 import android.content.Context;
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.arup.yahmoney.Library.ChatSystem.Chat;
 import com.arup.yahmoney.Library.ChatSystem.Message;
+import com.arup.yahmoney.R;
 
 public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.ViewHolder> {
     private final Context context;

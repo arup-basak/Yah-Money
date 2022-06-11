@@ -23,6 +23,8 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.arup.yahmoney.Adaptes.MainListAdapter;
 import com.arup.yahmoney.Library.ChatSystem.Chat;
 import com.arup.yahmoney.Library.ChatSystem.Chats;
 import com.arup.yahmoney.Library.User;

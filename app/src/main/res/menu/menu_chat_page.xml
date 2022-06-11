@@ -11,5 +11,11 @@
         android:id="@+id/call"
         android:orderInCategory="100"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_baseline_call_24"/>
+        android:icon="@drawable/phone_call"/>
+    <item
+        android:id="@+id/invoice"
+        android:icon="@drawable/invoice"
+        android:orderInCategory="100"
+        android:title="@string/invoice"
+        app:showAsAction="ifRoom" />
 </menu>

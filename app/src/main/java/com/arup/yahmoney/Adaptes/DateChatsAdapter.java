@@ -1,4 +1,4 @@
-package com.arup.yahmoney;
+package com.arup.yahmoney.Adaptes;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arup.yahmoney.Library.ChatSystem.Chat;
+import com.arup.yahmoney.R;
 
 import java.util.LinkedList;
 

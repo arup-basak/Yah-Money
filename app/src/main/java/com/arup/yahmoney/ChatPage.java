@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.arup.yahmoney.Adaptes.DateChatsAdapter;
 import com.arup.yahmoney.Library.ChatSystem.Chat;
 import com.arup.yahmoney.Library.User;
 import com.google.android.material.appbar.MaterialToolbar;

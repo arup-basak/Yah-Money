@@ -1,10 +1,9 @@
-package com.arup.yahmoney;
+package com.arup.yahmoney.Adaptes;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
@@ -23,6 +22,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arup.yahmoney.Library.User;
+import com.arup.yahmoney.MainActivity;
+import com.arup.yahmoney.R;
 
 import java.util.Arrays;
 import java.util.HashSet;

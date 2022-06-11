@@ -1,4 +1,4 @@
-package com.arup.yahmoney;
+package com.arup.yahmoney.Adaptes;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.arup.yahmoney.ChatPage;
+import com.arup.yahmoney.R;
 
 public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.ViewHolder> {
     private final String[][] localData;
