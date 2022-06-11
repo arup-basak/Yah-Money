@@ -1,4 +1,4 @@
-package com.arup.yahmoney.Adaptes;
+package com.arup.yahmoney.Adapters;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

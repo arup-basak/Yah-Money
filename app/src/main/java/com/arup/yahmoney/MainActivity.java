@@ -24,7 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.arup.yahmoney.Adaptes.MainListAdapter;
+import com.arup.yahmoney.Adapters.MainListAdapter;
 import com.arup.yahmoney.Library.ChatSystem.Chat;
 import com.arup.yahmoney.Library.ChatSystem.Chats;
 import com.arup.yahmoney.Library.User;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     static User user;
 
-    static User tempUser;
+    public static User tempUser;
 
     FirebaseDatabase database;
     DatabaseReference myRef;
