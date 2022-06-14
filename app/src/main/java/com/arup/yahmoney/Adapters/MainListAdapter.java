@@ -1,5 +1,7 @@
 package com.arup.yahmoney.Adapters;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arup.yahmoney.ChatPage;
@@ -37,7 +40,14 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.ViewHo
 
         viewHolder.nameView.setText(localData[index][0]);
         viewHolder.numbView.setText(localData[index][1]);
+
         viewHolder.container.setOnClickListener(v -> {
+/*            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+                    (Activity) context,
+                    viewHolder.container,
+                    ViewCompat.getTransitionName(viewHolder.container)
+            );*/
+
             Intent intent = new Intent(context, ChatPage.class);
             intent.putExtra("IndexFromMainPage", String.valueOf(index));
             context.startActivity(intent);

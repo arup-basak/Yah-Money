@@ -4,11 +4,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,6 +24,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.arup.yahmoney.Adapters.MainListAdapter;
@@ -54,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     TextView addCustomActionText, addContactActionText;
     Boolean isAllFabVisible;
 
-    EditText consoleEditText;
+    LinearLayout console;
 
 
     @Override
@@ -90,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
         getDetails();
 
-        consoleEditText = findViewById(R.id.console);
+        console = findViewById(R.id.console_layout);
 
         mAddFab = findViewById(R.id.add_fab);
         addCustomFab = findViewById(R.id.add_alarm_fab);
@@ -134,25 +137,34 @@ public class MainActivity extends AppCompatActivity {
         addCustomFab.setOnClickListener(
                 view -> showDialog());
 
+        console.setOnClickListener(v -> {
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+                    this,
+                    console,
+                    ViewCompat.getTransitionName(console)
+            );
+            startActivity(new Intent(this, searchActivity.class), options.toBundle());
+        });
+
 
         context = this;
 
-        consoleEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //String command = consoleEditText.getText().toString();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+//        consoleEditText.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                //String command = consoleEditText.getText().toString();
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
 
 
 

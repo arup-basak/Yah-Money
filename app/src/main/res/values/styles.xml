@@ -26,5 +26,7 @@
 
         <!-- Default Cursor -->
         <item name="android:textCursorDrawable">@drawable/cursor</item>
+
+        <item name="android:windowContentTransitions">true</item>
     </style>
 </resources>

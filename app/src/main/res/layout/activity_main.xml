@@ -21,18 +21,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/console"
+        <LinearLayout
+            android:id="@+id/console_layout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_weight="1"
+            android:background="@drawable/edit_text_back"
             android:ems="10"
             android:hint="@string/console"
             android:inputType="textPersonName"
-            android:paddingStart="20dp"
+            android:orientation="horizontal"
             android:textColor="@color/color5"
             android:textColorHint="@color/color5_trans2"
-            android:textCursorDrawable="@drawable/cursor" />
+            android:textCursorDrawable="@drawable/cursor"
+            android:transitionName="opening_console" />
 
         <ImageView
             android:id="@+id/imageButton"
