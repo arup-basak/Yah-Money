@@ -42,15 +42,15 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.ViewHo
         viewHolder.numbView.setText(localData[index][1]);
 
         viewHolder.container.setOnClickListener(v -> {
-/*            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
                     (Activity) context,
                     viewHolder.container,
                     ViewCompat.getTransitionName(viewHolder.container)
-            );*/
+            );
 
             Intent intent = new Intent(context, ChatPage.class);
             intent.putExtra("IndexFromMainPage", String.valueOf(index));
-            context.startActivity(intent);
+            context.startActivity(intent, options.toBundle());
         });
     }
 
